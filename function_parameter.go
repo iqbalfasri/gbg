@@ -2,7 +2,10 @@ package main
 
 import "fmt"
 
-func filter(data []string, callback func(string) bool) []string {
+// Alias type untuk fungsi callback yang menerima string dan mengembalikan bool.
+type StringFilter func(string) bool
+
+func filter(data []string, callback StringFilter) []string {
 	var result []string
 	for _, item := range data {
 		if callback(item) {
@@ -22,7 +25,8 @@ func main() {
 	data := []string{"apple", "banana", "cherry", "date", "elderberry"}
 	// Kita memiliki sebuah slice data yang berisi nama-nama buah.
 
-	filteredData := filter(data, func(fruit string) bool {
+	var filteredData []string
+	filteredData = filter(data, func(fruit string) bool {
 		if fruit == "banana" {
 			return true
 		}
